@@ -2,7 +2,7 @@
 
 Design sketches:
 
-![Alt text](Design/Designsketches/start_game.jpg)
+![Alt text](/Design/Designsketches/start_game.jpg)
 
 ![Alt text](https://github.com/Jack-Herrer/Hang-on/tree/master/Design/Designsketches/in_game.jpg)
 
