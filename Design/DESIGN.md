@@ -20,6 +20,6 @@ Design sketches:
 
 Model classes:
 
-![Alt text](/Designsketches/modelclasses.jpg)
+![Alt text](/Design/Designsketches/modelclasses.jpg)
 
 
