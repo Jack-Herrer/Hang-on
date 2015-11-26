@@ -12,5 +12,5 @@ Hang On is a human vs ai hangman game which might be harder than what you might 
 - Adjustable settings
 - Easy mode for people who have not got the hang of it yet
 
-![Alt text](/Designsketches/UserExperience.jpg)
+![Alt text](/UserExperience.jpg)
 
