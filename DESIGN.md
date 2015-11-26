@@ -1,6 +1,7 @@
 # Hang-on Design
 
-![Alt text](/Designsketches/start_game.jpg)
+
+![Alt text](/start_game.jpg)
 ![Alt text](/Designsketches/in_game.jpg)
 ![Alt text](/Designsketches/typing_ans.jpg)
 ![Alt text](/Designsketches/view_options.jpg)
