@@ -17,4 +17,9 @@ public class main_menu extends AppCompatActivity {
         Intent intent = new Intent(this, gameplay_activity.class);
         startActivity(intent);
     }
+
+    public void settings_click(View view) {
+        Intent intent = new Intent(this,settings.class);
+        startActivity(intent);
+    }
 }

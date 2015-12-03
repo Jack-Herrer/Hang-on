@@ -7,19 +7,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.HashSet;
 import java.util.Random;
-
+import java.util.ResourceBundle;
 import static com.example.jackherrer.hang_on.gameplay_activity.*;
 
-/**
- * Created by jackherrer on 1-12-15.
- */
 public class gameplay {
 
     int lives = 7;
     String answer = "";
-    String[] wordlist = {"allimentatie", "bergen", "vis"};
+    String[] wordlist = {"bergen", "vis", "A", "en", "vest", "kaart"};
+    //String[] wordlist = getStringArray(R.words.testArray);
+    //String[] wordlist = getResources().getStringArray(R.array.words);
+
     String word = wordlist[new Random().nextInt(wordlist.length)];
+
+    HashSet wordlisthash;
 
 
     public void initiate_blank_spaces(Activity activity){
@@ -93,5 +96,7 @@ public class gameplay {
 
 
     }
-    }
+
+
+}
 

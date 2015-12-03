@@ -14,4 +14,13 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:onClick="play_click"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SETTINGS"
+        android:id="@+id/main_menu_settings_button"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="settings_click"/>
 </RelativeLayout>
