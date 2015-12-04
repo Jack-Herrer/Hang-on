@@ -1,12 +1,16 @@
 package com.example.jackherrer.hang_on;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.security.PublicKey;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -14,7 +18,8 @@ import static com.example.jackherrer.hang_on.gameplay_activity.*;
 
 public class gameplay {
 
-    int lives = 7;
+    public int lives;
+
     String answer = "";
     String[] wordlist = {"bergen", "vis", "A", "en", "vest", "kaart"};
     //String[] wordlist = getStringArray(R.words.testArray);
@@ -22,9 +27,11 @@ public class gameplay {
 
     String word = wordlist[new Random().nextInt(wordlist.length)];
 
-    HashSet wordlisthash;
+    //HashSet wordlisthash;
 
+    public void load_prefs (Context c, Activity activity){
 
+    }
     public void initiate_blank_spaces(Activity activity){
         for(int i = 0; i < word.length(); i++){
             answer+=".";
@@ -72,7 +79,7 @@ public class gameplay {
             else{
                 lives--;
                 TextView lives_view = (TextView)activity.findViewById(R.id.in_game_lives);
-                lives_view.setText("Score: " + lives);
+                lives_view.setText("Lives: " + lives);
 
                 //check if lives left
                 if(lives == 0){
