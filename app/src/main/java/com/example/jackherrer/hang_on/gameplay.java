@@ -16,9 +16,14 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import static com.example.jackherrer.hang_on.gameplay_activity.*;
 
-public class gameplay {
+public class gameplay  {
 
-    public int lives;
+    int lives;
+
+//    public void initiate_lives_wordlength(Context c){
+//        SharedPreferences settings = c.getSharedPreferences("prefs_settings", 0);
+//        lives = settings.getInt("lives", 7);
+//        Toast.makeText(c," " + lives, Toast.LENGTH_LONG).show();
 
     String answer = "";
     String[] wordlist = {"bergen", "vis", "A", "en", "vest", "kaart"};
@@ -29,9 +34,7 @@ public class gameplay {
 
     //HashSet wordlisthash;
 
-    public void load_prefs (Context c, Activity activity){
 
-    }
     public void initiate_blank_spaces(Activity activity){
         for(int i = 0; i < word.length(); i++){
             answer+=".";

@@ -36,12 +36,11 @@ public class gameplay_activity extends AppCompatActivity {
 
 
     public void initialise() {
-        gameplay gameplayclass = new gameplay();
+        //gameplay gameplayclass = new gameplay();
         SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
         gameplayclass.lives = settings.getInt("lives", 7);
         TextView lives_view = (TextView) findViewById(R.id.in_game_lives);
         lives_view.setText("Lives: " + gameplayclass.lives);
-
         gameplayclass.initiate_blank_spaces(this);
     }
 
