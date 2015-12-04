@@ -10,6 +10,7 @@ public class gameplay{
     String answer = "";
     String[] wordlist = {"bergen", "vis", "A", "en", "vest", "kaart"};
     String word = wordlist[new Random().nextInt(wordlist.length)];
+    String guessed = "";
 
  public void initiate_blank_spaces(Activity activity){
         for(int i = 0; i < word.length(); i++){
@@ -17,6 +18,13 @@ public class gameplay{
             TextView answer_view = (TextView) activity.findViewById(R.id.in_game_answer);
             answer_view.setText(answer);
         }
+    }
+
+    public void wrong_guess(char letter, Activity activity){
+        guessed += " ";
+        guessed += letter;
+        TextView guessed_view = (TextView) activity.findViewById(R.id.gameplay_guessed_view);
+        guessed_view.setText("Guessed: " + guessed);
     }
 
 //    public void on_in_game_enter(Activity activity){

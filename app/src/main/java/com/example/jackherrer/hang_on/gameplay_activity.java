@@ -55,7 +55,7 @@ public class gameplay_activity extends AppCompatActivity {
         //handle input after validating
         if(answer_letters.length()==1) {
             char letter = answer_letters.charAt(0);
-            if( Character.isLetter(letter)){
+            if( Character.isLetter(letter) && (good_gameplay_class.guessed.indexOf(letter)) < 0){
               int lives = gameplayclass.lives;
                 good_gameplay_class.handle_input(this, lives, letter);}
             else{
