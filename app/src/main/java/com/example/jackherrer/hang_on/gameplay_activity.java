@@ -16,8 +16,13 @@ import java.util.Random;
 
 public class gameplay_activity extends AppCompatActivity {
 
+    //SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
 
 
+
+
+
+    evil_gameplay evil_gameplay_class = new evil_gameplay();
     good_gameplay good_gameplay_class = new good_gameplay();
     action_menu_handler action_menu_handler_class = new action_menu_handler();
 
@@ -35,13 +40,26 @@ public class gameplay_activity extends AppCompatActivity {
 
     public void initialise() {
         SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
-        good_gameplay_class.lives = settings.getInt("lives", 7);
-        TextView lives_view = (TextView) findViewById(R.id.in_game_lives);
-        lives_view.setText("Lives: " + good_gameplay_class.lives);
-        good_gameplay_class.initiate_blank_spaces(this);
-        good_gameplay_class.wordlist = good_gameplay_class.loadwordlist(this);
-        good_gameplay_class.word = good_gameplay_class.wordlist[new Random().nextInt(good_gameplay_class.wordlist.length)];
-        Toast.makeText(this, "word:" + good_gameplay_class.word, Toast.LENGTH_SHORT).show();
+        boolean evil = settings.getBoolean("evil", true);
+
+        if(evil){
+            evil_gameplay_class.lives = settings.getInt("lives", 7);
+            TextView lives_view = (TextView) findViewById(R.id.in_game_lives);
+            lives_view.setText("Lives: " + evil_gameplay_class.lives);
+            evil_gameplay_class.initiate_blank_spaces(this);
+            evil_gameplay_class.wordlist = evil_gameplay_class.loadwordlist(this);
+            evil_gameplay_class.word = evil_gameplay_class.wordlist[new Random().nextInt(evil_gameplay_class.wordlist.length)];
+        }
+
+        else{
+            good_gameplay_class.lives = settings.getInt("lives", 7);
+            TextView lives_view = (TextView) findViewById(R.id.in_game_lives);
+            lives_view.setText("Lives: " + good_gameplay_class.lives);
+            good_gameplay_class.initiate_blank_spaces(this);
+            good_gameplay_class.wordlist = good_gameplay_class.loadwordlist(this);
+            good_gameplay_class.word = good_gameplay_class.wordlist[new Random().nextInt(good_gameplay_class.wordlist.length)];
+            Toast.makeText(this, "word:" + good_gameplay_class.word, Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -57,6 +75,9 @@ public class gameplay_activity extends AppCompatActivity {
 
     public void on_in_game_enter(View view) {
 
+        SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
+        boolean evil = settings.getBoolean("evil", true);
+
         //get input
         EditText answer_box = (EditText)findViewById(R.id.in_game_answer_box);
         String answer_letters = String.valueOf(answer_box.getText());
@@ -64,8 +85,16 @@ public class gameplay_activity extends AppCompatActivity {
         //handle input after validating
         if(answer_letters.length()==1) {
             char letter = Character.toUpperCase(answer_letters.charAt(0));
-            if( Character.isLetter(letter) && (good_gameplay_class.guessed.indexOf(letter)) < 0){
-                good_gameplay_class.handle_input(this, letter);}
+
+
+            if(evil && Character.isLetter(letter) && evil_gameplay_class.guessed.indexOf(letter) < 0
+                    && evil_gameplay_class.answer.indexOf(letter) < 0 ) {
+                evil_gameplay_class.handle_input(this, letter);
+            }
+            else if(!evil && Character.isLetter(letter) && good_gameplay_class.guessed.indexOf(letter) < 0
+                    && good_gameplay_class.answer.indexOf(letter) < 0 ) {
+                good_gameplay_class.handle_input(this, letter);
+            }
             else{
                Toast.makeText(this, "invalid input", Toast.LENGTH_SHORT).show();
            }

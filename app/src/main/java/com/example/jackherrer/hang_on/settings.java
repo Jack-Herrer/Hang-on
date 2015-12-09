@@ -89,7 +89,7 @@ public class settings extends AppCompatActivity {
 
         });
 
-        // word length seekbar listener
+        // word length seekbar listner
         word_length_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             SharedPreferences.Editor editor = getSharedPreferences("prefs_settings", MODE_PRIVATE).edit();
 
@@ -109,7 +109,7 @@ public class settings extends AppCompatActivity {
 
         });
 
-        // evil mode listener
+        // evil mode listner
         evil_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override

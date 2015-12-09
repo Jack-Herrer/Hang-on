@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class gameplay{
 
     int lives;
     String answer = "";
-    String[] wordlist = {"bergen", "vis", "A", "en", "vest", "kaart"};
+    String[] wordlist;
     String word;
     String guessed = "";
 
