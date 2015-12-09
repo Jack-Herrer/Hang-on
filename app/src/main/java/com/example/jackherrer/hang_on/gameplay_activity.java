@@ -12,11 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class gameplay_activity extends AppCompatActivity {
 
-    gameplay gameplayclass = new gameplay();
+
+
     good_gameplay good_gameplay_class = new good_gameplay();
     action_menu_handler action_menu_handler_class = new action_menu_handler();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +35,14 @@ public class gameplay_activity extends AppCompatActivity {
 
     public void initialise() {
         SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
-        gameplayclass.lives = settings.getInt("lives", 7);
+        good_gameplay_class.lives = settings.getInt("lives", 7);
         TextView lives_view = (TextView) findViewById(R.id.in_game_lives);
-        lives_view.setText("Lives: " + gameplayclass.lives);
+        lives_view.setText("Lives: " + good_gameplay_class.lives);
         good_gameplay_class.initiate_blank_spaces(this);
+        good_gameplay_class.wordlist = good_gameplay_class.loadwordlist(this);
+        good_gameplay_class.word = good_gameplay_class.wordlist[new Random().nextInt(good_gameplay_class.wordlist.length)];
+        Toast.makeText(this, "word:" + good_gameplay_class.word, Toast.LENGTH_SHORT).show();
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,10 +63,9 @@ public class gameplay_activity extends AppCompatActivity {
 
         //handle input after validating
         if(answer_letters.length()==1) {
-            char letter = answer_letters.charAt(0);
+            char letter = Character.toUpperCase(answer_letters.charAt(0));
             if( Character.isLetter(letter) && (good_gameplay_class.guessed.indexOf(letter)) < 0){
-              int lives = gameplayclass.lives;
-                good_gameplay_class.handle_input(this, lives, letter);}
+                good_gameplay_class.handle_input(this, letter);}
             else{
                Toast.makeText(this, "invalid input", Toast.LENGTH_SHORT).show();
            }

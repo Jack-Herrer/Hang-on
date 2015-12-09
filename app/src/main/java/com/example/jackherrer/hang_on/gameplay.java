@@ -1,7 +1,12 @@
 package com.example.jackherrer.hang_on;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class gameplay{
@@ -9,15 +14,39 @@ public class gameplay{
     int lives;
     String answer = "";
     String[] wordlist = {"bergen", "vis", "A", "en", "vest", "kaart"};
-    String word = wordlist[new Random().nextInt(wordlist.length)];
+    String word;
     String guessed = "";
 
- public void initiate_blank_spaces(Activity activity){
-        for(int i = 0; i < word.length(); i++){
+    public void initiate_blank_spaces(Activity activity){
+
+        // get wordlength setting
+        SharedPreferences settings = activity.getSharedPreferences("prefs_settings", Context.MODE_PRIVATE);
+        int wordlength = settings.getInt("wordlength", 5);
+
+        // place dot on blank space
+        for(int i = 0; i <wordlength; i++){
             answer+=".";
             TextView answer_view = (TextView) activity.findViewById(R.id.in_game_answer);
             answer_view.setText(answer);
         }
+    }
+
+
+    public String[] loadwordlist (Activity activity){
+        SharedPreferences settings = activity.getSharedPreferences("prefs_settings", Context.MODE_PRIVATE);
+        int wordlength = settings.getInt("wordlength", 5);
+        if (wordlength == 0){wordlength++;}
+        String[] allwordlist = activity.getResources().getStringArray(R.array.words);
+        List<String> wordlist = new ArrayList<String>();
+
+        for (int i=0; i < allwordlist.length;i++) {
+            if (allwordlist[i].length() ==wordlength){
+                wordlist.add(allwordlist[i]);
+            }
+        }
+        String[] finalwordlist = new String[ wordlist.size() ];
+        wordlist.toArray( finalwordlist );
+        return finalwordlist;
     }
 
     public void wrong_guess(char letter, Activity activity){

@@ -5,14 +5,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class good_gameplay extends gameplay {
-    boolean lives_received = false;
 
-    public void handle_input (Activity activity, int lives_l, char ans){
-
-        if(!lives_received){
-            lives = lives_l;
-            lives_received = true;
-        }
+    public void handle_input (Activity activity, char ans){
 
         char letter = ans;
 
@@ -24,8 +18,6 @@ public class good_gameplay extends gameplay {
             // check if letter is in word and update answer
             for(int i = 0; i < word.length(); i++){
                 if(word.charAt(i) == letter){
-
-                    Toast.makeText(activity, "Bingo", Toast.LENGTH_SHORT).show();
 
                     char[] temp_answer = answer.toCharArray();
                     temp_answer[i] = letter;
@@ -41,6 +33,7 @@ public class good_gameplay extends gameplay {
             }
 
             if (correct_letter){
+                Toast.makeText(activity, "Bingo", Toast.LENGTH_SHORT).show();
                 TextView answer_view = (TextView)activity.findViewById(R.id.in_game_answer);
                 answer_view.setText(answer);
             }
