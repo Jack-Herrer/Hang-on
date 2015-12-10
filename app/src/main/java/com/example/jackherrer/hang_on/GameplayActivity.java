@@ -66,14 +66,13 @@ public class GameplayActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
         boolean evil = settings.getBoolean("evil", true);
 
-        //get input
+
         EditText answer_box = (EditText)findViewById(R.id.in_game_answer_box);
         String answer_letters = String.valueOf(answer_box.getText());
 
-        //handle input after validating
+        //validate and handle input
         if(answer_letters.length()==1) {
             char letter = Character.toUpperCase(answer_letters.charAt(0));
-
 
             if(evil && Character.isLetter(letter) && evilGameplay_class.guessed.indexOf(letter) < 0
                     && evilGameplay_class.answer.indexOf(letter) < 0 ) {

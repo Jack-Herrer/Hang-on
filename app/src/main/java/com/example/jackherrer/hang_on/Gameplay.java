@@ -52,16 +52,18 @@ public class Gameplay {
         guessed += " ";
         guessed += letter;
         TextView guessed_view = (TextView) activity.findViewById(R.id.gameplay_guessed_view);
-        guessed_view.setText("Guessed: " + guessed);
+        guessed_view.setText("Not: " + guessed);
     }
 
     public void on_win(Activity activity){
-        Intent to_highscore = new Intent(activity, HistoryViewActivity.class);
-        to_highscore.putExtra("lives", lives);
-        to_highscore.putExtra("mistakes", guessed.length());
-        to_highscore.putExtra("won", true);
-        to_highscore.putExtra("word", word);
-        activity.startActivity(to_highscore);
+        Intent to_history = new Intent(activity, HistoryViewActivity.class);
+
+        to_history.putExtra("lives", lives);
+        to_history.putExtra("mistakes", guessed.length());
+        to_history.putExtra("won", true);
+        to_history.putExtra("word", word);
+
+        activity.startActivity(to_history);
         activity.finish();
     }
 

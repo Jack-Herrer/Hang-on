@@ -91,7 +91,7 @@ public class SettingsActivity extends AppCompatActivity {
             int progress_changed = 0;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progress_changed = progress;
+                progress_changed = progress + 1;
 
                 TextView textViewWordLength = (TextView) findViewById(R.id.settings_wordlength_view);
                 textViewWordLength.setText("Word length: " + progress_changed);

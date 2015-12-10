@@ -1,7 +1,12 @@
 package com.example.jackherrer.hang_on;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,22 +20,32 @@ import org.apache.commons.io.FileUtils;
 
 public class HistoryViewActivity extends AppCompatActivity {
 
+    ActionMenuHandler actionMenuHandler_class = new ActionMenuHandler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_view_activity);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         if(this.getIntent().getExtras() != null) {
+
             Bundle extras = getIntent().getExtras();
             boolean won = extras.getBoolean("won", false);
 
             // only view name entry + submit if game is won
             if (won) {
+
                 EditText name_entry_button = (EditText) findViewById(R.id.hisotry_name_entry_view);
                 Button submit_button = (Button) findViewById(R.id.btnAddItem);
+                Button play_button = (Button) findViewById(R.id.history_play_game_button);
 
                 name_entry_button.setVisibility(View.VISIBLE);
                 submit_button.setVisibility(View.VISIBLE);
+                play_button.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -41,6 +56,16 @@ public class HistoryViewActivity extends AppCompatActivity {
 
         lvItems.setAdapter(itemsAdapter);
         setupListViewListener();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        return actionMenuHandler_class.handle_menu(item, this);
     }
 
     private void readItems() {
@@ -75,15 +100,18 @@ public class HistoryViewActivity extends AppCompatActivity {
 
         EditText name_entry_button = (EditText) findViewById(R.id.hisotry_name_entry_view);
         Button submit_button = (Button) findViewById(R.id.btnAddItem);
+        Button play_button = (Button) findViewById(R.id.history_play_game_button);
 
-        String itemText = name_entry_button.getText().toString() + "\nword:" + word + "\nmistakes: " + mistakes + "\n"
-                + lives + " lives left";
+        String itemText = name_entry_button.getText().toString().toUpperCase() + " with word: "
+                + word + " and " + mistakes +  " mistakes" + " (" + lives + " lives left)";
         itemsAdapter.add(itemText);
         name_entry_button.setText("");
         writeItems();
 
         name_entry_button.setVisibility(view.INVISIBLE);
         submit_button.setVisibility(view.INVISIBLE);
+        play_button.setVisibility(view.VISIBLE);
+
 
     }
 
@@ -102,6 +130,12 @@ public class HistoryViewActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+
+    public void play_game_click(View view) {
+        Intent new_game = new Intent(this, GameplayActivity.class);
+        this.startActivity(new_game);
+        this.finish();
     }
 
 }

@@ -46,27 +46,27 @@
         android:layout_height="wrap_content"
         android:text="Enter"
         android:id="@+id/in_game_enter"
+        android:onClick="onInGameEnter"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onInGameEnter"/>
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/in_game_answer_box"
+        android:hint="Enter a Letter"
+        android:maxLength="1"
         android:layout_above="@+id/in_game_enter"
         android:layout_centerHorizontal="true"
-        android:hint="Enter a Letter"
-        android:maxLength="1"/>
+ />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Guessed:"
+        android:text="Not:"
         android:id="@+id/gameplay_guessed_view"
-        android:layout_above="@+id/in_game_answer_box"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="47dp" />
+        android:layout_below="@+id/in_game_lives"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
