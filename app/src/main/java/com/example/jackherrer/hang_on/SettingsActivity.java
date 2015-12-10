@@ -14,9 +14,9 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
-    action_menu_handler action_menu_handler_class = new action_menu_handler();
+    ActionMenuHandler actionMenuHandler_class = new ActionMenuHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,31 +34,27 @@ public class settings extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        return action_menu_handler_class.handle_menu(item, this);
+        return actionMenuHandler_class.handle_menu(item, this);
     }
 
     public void onResume(){
         super.onResume();
 
-        // initiate shared prefs
-
-        //SharedPreferences.Editor editor = getSharedPreferences("prefs_settings", MODE_PRIVATE).edit();
-
         SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
 
-        // apply lives saved/default settings
+        // apply lives saved/default SettingsActivity
         SeekBar lives_seekbar = (SeekBar) findViewById(R.id.settings_lives_bar);
         lives_seekbar.setProgress(settings.getInt("lives", 7));
         TextView textViewLives = (TextView) findViewById(R.id.settings_lives_view);
         textViewLives.setText("Lives: " + settings.getInt("lives", 7));
 
-        // apply word length saved/default settings
+        // apply word length saved/default SettingsActivity
         SeekBar word_length_bar = (SeekBar) findViewById(R.id.settings_word_length_bar);
         word_length_bar.setProgress(settings.getInt("wordlength", 5));
         TextView textViewWordLength = (TextView) findViewById(R.id.settings_wordlength_view);
         textViewWordLength.setText("Word length: " + settings.getInt("wordlength", 5));
 
-        // apply evil mode saved/default settings
+        // apply evil mode saved/default SettingsActivity
         Switch evil_switch = (Switch) findViewById(R.id.settings_difficulty_switch);
         if  (settings.getBoolean("evil", true) == true){
             evil_switch.setChecked(true);
@@ -67,7 +63,6 @@ public class settings extends AppCompatActivity {
         {
             evil_switch.setChecked(false);
         }
-
 
         // lives seekbar listner
         lives_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -109,7 +104,7 @@ public class settings extends AppCompatActivity {
 
         });
 
-        // evil mode listner
+        // evil mode listener
         evil_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -121,15 +116,12 @@ public class settings extends AppCompatActivity {
                     editor.putBoolean("evil", false);
                 }
                 editor.commit();
-
             }
         });
-
-
     }
 
     public void play_game_click(View view) {
-        Intent new_game = new Intent(this, gameplay_activity.class);
+        Intent new_game = new Intent(this, GameplayActivity.class);
         this.startActivity(new_game);
         this.finish();
     }

@@ -48,7 +48,7 @@
         android:id="@+id/in_game_enter"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="on_in_game_enter"/>
+        android:onClick="onInGameEnter"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,7 +56,8 @@
         android:id="@+id/in_game_answer_box"
         android:layout_above="@+id/in_game_enter"
         android:layout_centerHorizontal="true"
-        android:hint="Enter a Letter" />
+        android:hint="Enter a Letter"
+        android:maxLength="1"/>
 
     <TextView
         android:layout_width="wrap_content"

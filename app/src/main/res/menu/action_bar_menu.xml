@@ -10,7 +10,7 @@
         app:showAsAction="never"/>
 
 
-    <item android:id="@+id/action_high_score"
+    <item android:id="@+id/action_history_view"
         android:title="High score"
         app:showAsAction="never"/>
 

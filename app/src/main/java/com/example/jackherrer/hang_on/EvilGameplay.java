@@ -3,11 +3,10 @@ package com.example.jackherrer.hang_on;
 import android.app.Activity;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Random;
 
-public class evil_gameplay extends gameplay {
+public class EvilGameplay extends Gameplay {
 
     public void handle_input (Activity activity, char ans){
 
@@ -17,11 +16,8 @@ public class evil_gameplay extends gameplay {
         ArrayList<String> templist_good = new ArrayList<String>();
         ArrayList<String> templist_false = new ArrayList<String>();
 
-
-
         //check for valid input
         if((lives != 0) && (!answer.equals(word))) {
-
             boolean correct_letter = false;
 
             // Split wordlist to letter
@@ -34,7 +30,6 @@ public class evil_gameplay extends gameplay {
                 }
             }
 
-            // TWEE KEER DEZELFDE LETTER KAN NOG BIJV EERST BOAT EN DAN BOOM
             //"correct guess"
             if(templist_good.size()>templist_false.size()){
                 wordlist = templist_good.toArray(new String[templist_false.size()]);
@@ -49,7 +44,6 @@ public class evil_gameplay extends gameplay {
                 //find correct letter in chosen word
                 for(int i = 0; i < word.length(); i++) {
                     if (word.charAt(i) == letter) {
-
                         char[] temp_answer = answer.toCharArray();
                         temp_answer[i] = letter;
                         answer = String.valueOf(temp_answer);
@@ -65,6 +59,7 @@ public class evil_gameplay extends gameplay {
                                 templist_good.remove(j);
                             }
 
+                            //delete all words with double occurrences of answered letter
                             if(wordlist[j].length() - word.replace(letterstring, "").length() != 1){
                                 templist_good.remove(j);
                             }
@@ -72,8 +67,6 @@ public class evil_gameplay extends gameplay {
                         wordlist = templist_good.toArray(new String[templist_good.size()]);
                     }
                 }
-
-
             }
 
             else {

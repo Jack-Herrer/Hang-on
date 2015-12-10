@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class good_gameplay extends gameplay {
+public class GoodGameplay extends Gameplay {
 
     public void handle_input (Activity activity, char ans){
 
@@ -22,12 +22,12 @@ public class good_gameplay extends gameplay {
                     char[] temp_answer = answer.toCharArray();
                     temp_answer[i] = letter;
                     answer = String.valueOf(temp_answer);
-
                     correct_letter = true;
 
                     // check on win
                     if(answer.equals(word)) {
                         Toast.makeText(activity, "You win!", Toast.LENGTH_LONG).show();
+                        on_win(activity);
                     }
                 }
             }

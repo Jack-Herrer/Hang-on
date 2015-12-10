@@ -2,12 +2,13 @@ package com.example.jackherrer.hang_on;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class gameplay{
+public class Gameplay {
 
     int lives;
     String answer = "";
@@ -54,12 +55,22 @@ public class gameplay{
         guessed_view.setText("Guessed: " + guessed);
     }
 
-//    public void on_in_game_enter(Activity activity){
+    public void on_win(Activity activity){
+        Intent to_highscore = new Intent(activity, HistoryViewActivity.class);
+        to_highscore.putExtra("lives", lives);
+        to_highscore.putExtra("mistakes", guessed.length());
+        to_highscore.putExtra("won", true);
+        to_highscore.putExtra("word", word);
+        activity.startActivity(to_highscore);
+        activity.finish();
+    }
+
+//    public void onInGameEnter(Activity activity){
 //        Toast.makeText(activity,""+lives, Toast.LENGTH_LONG).show();
 
 
-//        good_gameplay good_gameplay_class = new good_gameplay();
-//        good_gameplay_class.handle_input(activity, lives);
+//        GoodGameplay goodGameplay_class = new GoodGameplay();
+//        goodGameplay_class.handle_input(activity, lives);
 
 //        EditText answer_box = (EditText)activity.findViewById(R.id.in_game_answer_box);
 //        String answer_letters = String.valueOf(answer_box.getText());
