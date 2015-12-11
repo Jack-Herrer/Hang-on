@@ -124,7 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    public void play_game_click(View view) {
+    public void playGameClick(View view) {
         Intent new_game = new Intent(this, GameplayActivity.class);
         this.startActivity(new_game);
         this.finish();
