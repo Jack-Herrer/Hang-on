@@ -7,72 +7,75 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * EvilGameplay Class
+ * This class handles part of gameplay specific to evil mode
+ *
+ * @version 1
+ * @author Michiel van der List  */
+
 public class EvilGameplay extends Gameplay {
 
     public void handle_input (Activity activity, char ans) {
-        SharedPreferences settings = activity.getSharedPreferences("prefs_settings", Context.MODE_PRIVATE);
-        int wordlength = settings.getInt("wordlength", 5);
-        char letter = ans;
-        String letterstring = "" + letter;
-        ArrayList<String> templist_good = new ArrayList<String>();
-        ArrayList<String> templist_false = new ArrayList<String>();
         correct_letter = false;
 
-        if (wordlist.length == 1) {
-           // search_correct_letter(activity);
-            search_correct_letter(activity, letter);
-        }
+        char letter = ans;
+        String letterstring = "" + letter;
 
-        else {
+        SharedPreferences settings = activity.getSharedPreferences("prefs_settings", Context.MODE_PRIVATE);
+        int wordlength = settings.getInt("wordlength", 5);
+
+        ArrayList<String> templistLetter = new ArrayList<String>();
+        ArrayList<String> templistNoLetter = new ArrayList<String>();
+
+
+        if (wordlist.length == 1) {
+            search_correct_letter(activity, letter);
+        } else {
+
             // split list on letter occurrence true/false excluding double occurrence
             for (int i = 0; i < wordlist.length; i++) {
                 if ((wordlist[i].indexOf(letter)) >= 0) {
                     if ((wordlist[i].length() - wordlist[i].replace(letterstring, "").length()) == 1) {
-                        templist_good.add(wordlist[i]);
+                        templistLetter.add(wordlist[i]);
                     }
-                }
-                else {
-                    templist_false.add(wordlist[i]);
+                } else {
+                    templistNoLetter.add(wordlist[i]);
                 }
             }
 
-            //"correct guess"
-            if ((templist_good.size() >= templist_false.size()) && templist_good.size() > 0) {
-                String[] temp_wordlist = templist_good.toArray(new String[templist_good.size()]);
+            // check if list of letter at any index is larger than non letter list
+            if ((templistLetter.size() >= templistNoLetter.size()) && templistLetter.size() > 0) {
+                String[] temp_wordlist = templistLetter.toArray(new String[templistLetter.size()]);
 
                 for (int i = 0; i < wordlength; i++) {
-                    ArrayList<String> subtemplist_good = new ArrayList<String>();
+                    ArrayList<String> subTempList = new ArrayList<String>();
                     for (int j = 0; j < temp_wordlist.length; j++) {
                         if (temp_wordlist[j].charAt(i) == letter) {
-                            subtemplist_good.add(temp_wordlist[j]);
-
+                            subTempList.add(temp_wordlist[j]);
                         }
                     }
-                    if (subtemplist_good.size() >= templist_false.size()) {
-                        templist_false = subtemplist_good;
+                    if (subTempList.size() >= templistNoLetter.size()) {
+                        templistNoLetter = subTempList;
                         correct_letter = true;
                     }
                 }
-                wordlist = templist_false.toArray(new String[templist_false.size()]);
-                word = wordlist[new Random().nextInt(wordlist.length)];
 
-                //find correct letter in chosen word
+                wordlist = templistNoLetter.toArray(new String[templistNoLetter.size()]);
+                word = wordlist[new Random().nextInt(wordlist.length)];
                 search_correct_letter(activity, letter);
-            }
 
-            else {
-                wordlist = templist_false.toArray(new String[templist_false.size()]);
+            } else {
+                wordlist = templistNoLetter.toArray(new String[templistNoLetter.size()]);
                 word = wordlist[new Random().nextInt(wordlist.length)];
             }
-//            Toast.makeText(activity, "chosen word: " + word, Toast.LENGTH_LONG).show();
         }
+
         if (correct_letter) {
             TextView answer_view = (TextView) activity.findViewById(R.id.in_game_answer);
             answer_view.setText(answer);
-        }
-
-        else {
-            wrong_guess(letter, activity);
+        } else {
+            wrongGuess(letter, activity);
         }
     }
 }

@@ -18,8 +18,3 @@ Design sketches:
 
 ![Alt text](/Design/Designsketches/lost_game.jpg)
 
-Model classes:
-
-![Alt text](/Design/Designsketches/modelclasses.jpg)
-
-

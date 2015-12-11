@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="Play"
             android:id="@+id/settings_play_game_button"
-            android:onClick="play_game_click"
+            android:onClick="playGameClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

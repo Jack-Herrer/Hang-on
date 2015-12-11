@@ -14,9 +14,15 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class SettingsActivity extends AppCompatActivity {
+/**
+ * SettingActivity Class
+ * This class sets the gameplay settings
+ *
+ * @version 1
+ * @author Michiel van der List  */
 
-    ActionMenuHandler actionMenuHandler_class = new ActionMenuHandler();
+public class SettingsActivity extends AppCompatActivity {
+    ActionMenuHandler actionMenuHandlerClass = new ActionMenuHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +40,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        return actionMenuHandler_class.handle_menu(item, this);
+        return actionMenuHandlerClass.handleMenu(item, this);
     }
 
     public void onResume(){
         super.onResume();
-
         SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
 
-        // apply lives saved/default SettingsActivity
+        //apply lives saved/default SettingsActivity
         SeekBar lives_seekbar = (SeekBar) findViewById(R.id.settings_lives_bar);
         lives_seekbar.setProgress(settings.getInt("lives", 7));
         TextView textViewLives = (TextView) findViewById(R.id.settings_lives_view);
@@ -58,20 +63,19 @@ public class SettingsActivity extends AppCompatActivity {
         Switch evil_switch = (Switch) findViewById(R.id.settings_difficulty_switch);
         if  (settings.getBoolean("evil", true) == true){
             evil_switch.setChecked(true);
-        }
-        else
+        } else
         {
             evil_switch.setChecked(false);
         }
 
-        // lives seekbar listner
+        // Lives seekbar listener
         lives_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             SharedPreferences.Editor editor = getSharedPreferences("prefs_settings", MODE_PRIVATE).edit();
 
             int progress_changed = 0;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progress_changed = progress;
+                progress_changed = progress + 1;
 
                 TextView textViewWordLength = (TextView) findViewById(R.id.settings_lives_view);
                 textViewWordLength.setText("Lives: " + progress_changed);

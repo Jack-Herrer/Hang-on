@@ -13,6 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Random;
 
+/**
+ * GameplayActivity Class
+ * This class handles the user input during gameplay
+ *
+ * @version 1
+ * @author Michiel van der List  */
+
 public class GameplayActivity extends AppCompatActivity {
     EvilGameplay evilGameplay_class = new EvilGameplay();
     GoodGameplay goodGameplay_class = new GoodGameplay();
@@ -35,17 +42,15 @@ public class GameplayActivity extends AppCompatActivity {
             evilGameplay_class.lives = settings.getInt("lives", 7);
             TextView lives_view = (TextView) findViewById(R.id.in_game_lives);
             lives_view.setText("Lives: " + evilGameplay_class.lives);
-            evilGameplay_class.initiate_blank_spaces(this);
-            evilGameplay_class.wordlist = evilGameplay_class.loadwordlist(this);
+            evilGameplay_class.initiateBlankSpaces(this);
+            evilGameplay_class.wordlist = evilGameplay_class.loadWordlist(this);
             evilGameplay_class.word = evilGameplay_class.wordlist[new Random().nextInt(evilGameplay_class.wordlist.length)];
-        }
-
-        else{
+        } else{
             goodGameplay_class.lives = settings.getInt("lives", 7);
             TextView lives_view = (TextView) findViewById(R.id.in_game_lives);
             lives_view.setText("Lives: " + goodGameplay_class.lives);
-            goodGameplay_class.initiate_blank_spaces(this);
-            goodGameplay_class.wordlist = goodGameplay_class.loadwordlist(this);
+            goodGameplay_class.initiateBlankSpaces(this);
+            goodGameplay_class.wordlist = goodGameplay_class.loadWordlist(this);
             goodGameplay_class.word = goodGameplay_class.wordlist[new Random().nextInt(goodGameplay_class.wordlist.length)];
             Toast.makeText(this, "word:" + goodGameplay_class.word, Toast.LENGTH_SHORT).show();
         }
@@ -59,13 +64,12 @@ public class GameplayActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        return actionMenuHandler_class.handle_menu(item, this);
+        return actionMenuHandler_class.handleMenu(item, this);
     }
 
     public void onInGameEnter(View view) {
         SharedPreferences settings = getSharedPreferences("prefs_settings", 0);
         boolean evil = settings.getBoolean("evil", true);
-
 
         EditText answer_box = (EditText)findViewById(R.id.in_game_answer_box);
         String answer_letters = String.valueOf(answer_box.getText());
@@ -77,16 +81,13 @@ public class GameplayActivity extends AppCompatActivity {
             if(evil && Character.isLetter(letter) && evilGameplay_class.guessed.indexOf(letter) < 0
                     && evilGameplay_class.answer.indexOf(letter) < 0 ) {
                 evilGameplay_class.handle_input(this, letter);
-            }
-            else if(!evil && Character.isLetter(letter) && goodGameplay_class.guessed.indexOf(letter) < 0
+            } else if(!evil && Character.isLetter(letter) && goodGameplay_class.guessed.indexOf(letter) < 0
                     && goodGameplay_class.answer.indexOf(letter) < 0 ) {
-                goodGameplay_class.handle_input(this, letter);
-            }
-            else{
+                goodGameplay_class.handleInput(this, letter);
+            } else{
                Toast.makeText(this, "invalid input", Toast.LENGTH_SHORT).show();
            }
-        }
-        else{
+        } else{
             Toast.makeText(this, "invalid input", Toast.LENGTH_SHORT).show();
         }
     }

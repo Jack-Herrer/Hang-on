@@ -4,10 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.MenuItem;
 
+/**
+ * ActionMenuHandler Class
+ * This class handles the clicking on action bar buttons
+ *
+ * @version 1
+ * @author Michiel van der List  */
 
 public class ActionMenuHandler {
 
-    public boolean handle_menu(MenuItem item, Activity activity) {
+    public boolean handleMenu(MenuItem item, Activity activity) {
+
         switch (item.getItemId()) {
             case R.id.action_new_game:
                 Intent new_game = new Intent(activity, GameplayActivity.class);
@@ -33,7 +40,6 @@ public class ActionMenuHandler {
 
             default:
                 return true;
-
         }
     }
 }
