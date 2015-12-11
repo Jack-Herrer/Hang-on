@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Gameplay {
     String[] wordlist;
     String word;
     String guessed = "";
+    boolean correct_letter = false;
 
     public void initiate_blank_spaces(Activity activity){
 
@@ -65,6 +68,24 @@ public class Gameplay {
 
         activity.startActivity(to_history);
         activity.finish();
+    }
+
+    public void search_correct_letter(Activity activity, char letter){
+        for(int i = 0; i < word.length(); i++){
+            if(word.charAt(i) == letter){
+
+                char[] temp_answer = answer.toCharArray();
+                temp_answer[i] = letter;
+                answer = String.valueOf(temp_answer);
+                correct_letter = true;
+
+                // check on win
+                if(answer.equals(word)) {
+                    Toast.makeText(activity, "You win!", Toast.LENGTH_LONG).show();
+                    on_win(activity);
+                }
+            }
+        }
     }
 
 //    public void onInGameEnter(Activity activity){
