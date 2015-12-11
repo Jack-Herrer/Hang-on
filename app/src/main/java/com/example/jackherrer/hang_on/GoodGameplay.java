@@ -21,16 +21,7 @@ public class GoodGameplay extends Gameplay {
 
         //update lives in case of wrong letter
         else{
-            lives--;
-            TextView lives_view = (TextView)activity.findViewById(R.id.in_game_lives);
-            lives_view.setText("Lives: " + lives);
-
             wrong_guess(letter, activity);
-
-            //check if lives left
-            if(lives == 0){
-                Toast.makeText(activity,"Game over: You lost", Toast.LENGTH_LONG).show();
-            }
         }
     }
 

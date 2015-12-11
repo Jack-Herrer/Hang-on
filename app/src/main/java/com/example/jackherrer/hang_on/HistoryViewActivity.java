@@ -102,7 +102,7 @@ public class HistoryViewActivity extends AppCompatActivity {
         Button submit_button = (Button) findViewById(R.id.btnAddItem);
         Button play_button = (Button) findViewById(R.id.history_play_game_button);
 
-        String itemText = name_entry_button.getText().toString().toUpperCase() + " with word: "
+        String itemText = name_entry_button.getText().toString().toUpperCase() + " won with word: "
                 + word + " and " + mistakes +  " mistakes" + " (" + lives + " lives left)";
         itemsAdapter.add(itemText);
         name_entry_button.setText("");

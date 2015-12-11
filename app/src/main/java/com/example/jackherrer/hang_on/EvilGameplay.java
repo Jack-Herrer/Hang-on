@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,7 +12,6 @@ public class EvilGameplay extends Gameplay {
     public void handle_input (Activity activity, char ans) {
         SharedPreferences settings = activity.getSharedPreferences("prefs_settings", Context.MODE_PRIVATE);
         int wordlength = settings.getInt("wordlength", 5);
-        int occurrences;
         char letter = ans;
         String letterstring = "" + letter;
         ArrayList<String> templist_good = new ArrayList<String>();
@@ -58,58 +56,23 @@ public class EvilGameplay extends Gameplay {
                 wordlist = templist_false.toArray(new String[templist_false.size()]);
                 word = wordlist[new Random().nextInt(wordlist.length)];
 
-                // pick random word giving away just 1 letter
-                //            do{
-                //                word = wordlist[new Random().nextInt(wordlist.length)];
-                //                occurrences = word.length() - word.replace(letterstring, "").length();
-                //
-                //            } while(occurrences != 1);
-                //            correct_letter = true;
-
                 //find correct letter in chosen word
-                for (int i = 0; i < word.length(); i++) {
-                    if (word.charAt(i) == letter) {
-                        char[] temp_answer = answer.toCharArray();
-                        temp_answer[i] = letter;
-                        answer = String.valueOf(temp_answer);
-
-                        // check on win
-                        if (answer.equals(word)) {
-                            Toast.makeText(activity, "You win!", Toast.LENGTH_LONG).show();
-                            on_win(activity);
-                        }
-                    }
-                }
+                search_correct_letter(activity, letter);
             }
 
             else {
                 wordlist = templist_false.toArray(new String[templist_false.size()]);
                 word = wordlist[new Random().nextInt(wordlist.length)];
             }
-
-
-            if (correct_letter) {
-                TextView answer_view = (TextView) activity.findViewById(R.id.in_game_answer);
-                answer_view.setText(answer);
-            }
-
-            //update lives in case of wrong letter
-            else {
-                lives--;
-                TextView lives_view = (TextView) activity.findViewById(R.id.in_game_lives);
-                lives_view.setText("Lives: " + lives);
-
-                wrong_guess(letter, activity);
-
-                //check if lives left
-                if (lives == 0) {
-                    Toast.makeText(activity, "Game over: You lost", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            Toast.makeText(activity, "chosen word: " + word, Toast.LENGTH_LONG).show();
+//            Toast.makeText(activity, "chosen word: " + word, Toast.LENGTH_LONG).show();
+        }
+        if (correct_letter) {
+            TextView answer_view = (TextView) activity.findViewById(R.id.in_game_answer);
+            answer_view.setText(answer);
         }
 
-
+        else {
+            wrong_guess(letter, activity);
+        }
     }
 }

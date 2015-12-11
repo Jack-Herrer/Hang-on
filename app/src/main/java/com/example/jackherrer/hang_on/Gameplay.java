@@ -33,7 +33,6 @@ public class Gameplay {
         }
     }
 
-
     public String[] loadwordlist (Activity activity){
         SharedPreferences settings = activity.getSharedPreferences("prefs_settings", Context.MODE_PRIVATE);
         int wordlength = settings.getInt("wordlength", 5);
@@ -54,8 +53,20 @@ public class Gameplay {
     public void wrong_guess(char letter, Activity activity){
         guessed += " ";
         guessed += letter;
+        lives--;
+
         TextView guessed_view = (TextView) activity.findViewById(R.id.gameplay_guessed_view);
         guessed_view.setText("Not: " + guessed);
+
+        TextView lives_view = (TextView)activity.findViewById(R.id.in_game_lives);
+        lives_view.setText("Lives: " + lives);
+
+        if(lives == 0){
+            Toast.makeText(activity,"Game over: You lost\nWord: " + word, Toast.LENGTH_LONG).show();
+            Intent to_history= new Intent(activity, HistoryViewActivity.class);
+            activity.startActivity(to_history);
+            activity.finish();
+        }
     }
 
     public void on_win(Activity activity){
